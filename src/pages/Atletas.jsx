@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Base from "./Base"
 import { getAll, getElenco } from "../services/AtletasBotafogo";
-import AtletaCard from "../components/AtletaCard/AtletaCard";
+import Default from "../components/_DEFAULT/Default";
 import ListContainer from "../components/ListContainer/ListContainer";
 
 const Atletas = () => {

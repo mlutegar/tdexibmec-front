@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Card = styled.article`
+const DefaultStyle = styled.article`
   width: 15rem;
   background-color: var(--detalhe);
   padding: .5em;
@@ -27,4 +27,4 @@ const Card = styled.article`
 
 `;
 
-export {Card};
+export {DefaultStyle};
