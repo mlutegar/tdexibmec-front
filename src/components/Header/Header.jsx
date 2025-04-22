@@ -1,18 +1,25 @@
-import { Link } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import { Top } from "./Style";
 
-const Header = () => (
-  <Top>
-    <Link to="/">Home</Link>
-    <Link to="/fotos">Fotos</Link>
-    <Link to="/atletas">Atletas</Link>
-    
-    { window.sessionStorage.getItem('accessToken')
-    ? <Link to="/logout">Logout</Link>
-    : <Link to="/login">Login</Link>
+
+
+const Header = () => {
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        // Aqui você pode adicionar a lógica de logout, como limpar o token ou redirecionar o usuário
+        console.log("Logout realizado");
+        navigate("/");
     }
-    
-  </Top>
-)
+
+    return (
+        <Top>
+            Logo
+            <button type={"button"} onClick={handleLogout}>
+                Sair
+            </button>
+        </Top>
+    )
+}
 
 export default Header;

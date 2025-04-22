@@ -1,26 +1,14 @@
-import {onAuthStateChanged} from "firebase/auth"
-import Base from "./Base"
-import {auth} from "../config/Firebase";
-import {useEffect} from "react";
-import TelaInicialUsuario from "../components/TelaInicialUsuario/TelaInicialUsuario";
+import BotaoAbrirInputTelaInicial from "../components/BotaoAbrirInputTelaInicial/BotaoAbrirInputTelaInicial";
+import HeaderTelaInicial from "../components/HeaderTelaInicial/HeaderTelaInicial";
+import ArteTelaInicial from "../components/ArteTelaInicial/ArteTelaInicial";
 
 const Home = () => {
-
-    /* useEffect(()=> {
-      onAuthStateChanged(auth, (user)=> {
-        if (user) {
-          window.sessionStorage.setItem("accessToken", user.accessToken);
-        } else {
-          window.sessionStorage.removeItem("accessToken");
-        }
-      })
-    },[]) */
-
-
     return (
-        <Base>
-            <TelaInicialUsuario/>
-        </Base>
+        <>
+            <HeaderTelaInicial/>
+            <ArteTelaInicial/>
+            <BotaoAbrirInputTelaInicial/>
+        </>
     )
 }
 

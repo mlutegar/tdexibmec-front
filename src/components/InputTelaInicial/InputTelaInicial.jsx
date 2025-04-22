@@ -1,8 +1,10 @@
-import { TelaInicialUsuarioStyle } from "./Style";
+import { InputTelaInicialStyle } from "./Style";
 import {useState} from "react";
+import {useNavigate} from "react-router-dom";
 
-const TelaInicialUsuario = () => {
+const InputTelaInicial = ({className}) => {
   const [name, setName] = useState('');
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setName(e.target.value);
@@ -10,14 +12,17 @@ const TelaInicialUsuario = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Lógica para avançar aqui
     console.log('Nome enviado:', name);
+
+    navigate('/cronograma', {
+      state: { name }
+    });
   };
 
   return (
-      <TelaInicialUsuarioStyle>
+      <InputTelaInicialStyle className={className}>
         <form onSubmit={handleSubmit}>
-          <label htmlFor="name">Nome:</label>
+          <label htmlFor="name">NOME</label>
           <input
               type="text"
               id="name"
@@ -26,11 +31,11 @@ const TelaInicialUsuario = () => {
               placeholder="Digite seu nome"
           />
           <button type="submit" disabled={!name.trim()}>
-            Avançar
+            Entrar
           </button>
         </form>
-      </TelaInicialUsuarioStyle>
+      </InputTelaInicialStyle>
   )
 }
 
-export default TelaInicialUsuario;
+export default InputTelaInicial;
