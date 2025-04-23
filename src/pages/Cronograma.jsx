@@ -2,6 +2,7 @@ import Base from "./Base"
 import {useNavigate} from "react-router-dom";
 import CardCronograma from "../components/CardCronograma/CardCronograma";
 import BreakTime from "../components/BreakTime/BreakTime";
+import TituloPagina from "../components/TituloPagina/TituloPagina";
 
 const Cronograma = () => {
     const navigate = useNavigate();
@@ -47,6 +48,11 @@ const Cronograma = () => {
 
     return (
         <Base>
+            <TituloPagina
+                titulo="Cronograma"
+                subtitulo="Clique no palestrante da vez para participar da dinâmica!"
+            />
+
             {convidados.slice(0, 2).map((convidado, index) => (
                 <CardCronograma
                     key={index}

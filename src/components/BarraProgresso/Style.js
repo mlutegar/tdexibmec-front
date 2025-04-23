@@ -24,11 +24,15 @@ const BarraProgressoStyle = styled.article`
     }
     
     .barText{
+        color: #FFF;
+        font-family: Inter;
+        font-size: 0.625rem;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        
         text-align: right;
         margin-bottom: 4px;
-        font-weight: bold;
-        font-size: 18px;
-        color: #fff;
         width: ${props => props.progress + 6}%;
         transition: width 0.3s ease-out;
     }

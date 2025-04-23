@@ -1,4 +1,4 @@
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import BaseJogo from "./BaseJogo";
 import BarraProgresso from "../components/BarraProgresso/BarraProgresso";
 import CardPergunta from "../components/CardPergunta/CardPergunta";
@@ -14,6 +14,7 @@ const Palestrante = () => {
     const [alternativaSelecionada, setAlternativaSelecionada] = useState(null);
     const [perguntaAtual, setPerguntaAtual] = useState(0);
 
+    const navigate = useNavigate();
     const location = useLocation();
     const {palestrante} = location.state;
 
@@ -23,6 +24,10 @@ const Palestrante = () => {
     };
 
     const handleEnviar = () => {
+        if (perguntaAtual === perguntas.length - 1) {
+            navigate("/ranking");
+        }
+
         if (alternativaSelecionada === perguntas[perguntaAtual].resposta) {
             setPerguntaAtual(perguntaAtual + 1);
             setAlternativaSelecionada(null);
