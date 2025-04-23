@@ -1,8 +1,20 @@
 import Base from "./Base"
 import {useNavigate} from "react-router-dom";
+import CardCronograma from "../components/CardCronograma/CardCronograma";
+import BreakTime from "../components/BreakTime/BreakTime";
 
 const Cronograma = () => {
     const navigate = useNavigate();
+
+    const handleClick = (palestrante) => {
+        console.log("Card clicado!");
+
+        navigate('/palestrante', {
+            state: {
+                palestrante: palestrante
+            }
+        });
+    }
 
     const convidados = [
         {
@@ -35,14 +47,27 @@ const Cronograma = () => {
 
     return (
         <Base>
-            {convidados.map((convidado, index) => (
-                <div key={index}>
-                    <h2>{convidado.nome}</h2>
-                    <p>Início: {convidado.horario_inicio}</p>
-                    <p>Fim: {convidado.horario_fim}</p>
-                </div>
+            {convidados.slice(0, 2).map((convidado, index) => (
+                <CardCronograma
+                    key={index}
+                    nomeConvidado={convidado.nome}
+                    horarioInicio={convidado.horario_inicio}
+                    horarioFim={convidado.horario_fim}
+                    onClick={handleClick.bind(null, convidado)}
+                />
             ))}
 
+            <BreakTime/>
+
+            {convidados.slice(2, 5).map((convidado, index) => (
+                <CardCronograma
+                    key={index}
+                    nomeConvidado={convidado.nome}
+                    horarioInicio={convidado.horario_inicio}
+                    horarioFim={convidado.horario_fim}
+                    onClick={handleClick.bind(null, convidado)}
+                />
+            ))}
         </Base>
     )
 }

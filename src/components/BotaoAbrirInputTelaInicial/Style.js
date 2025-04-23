@@ -1,29 +1,43 @@
 import styled from "styled-components";
 
-const BotaoAbrirInputTelaInicialStyle = styled.article`
+const BotaoAbrirInputTelaInicialStyle = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 2rem;
-    position: relative;
+    
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    
+    transition: transform 0.5s ease-out;
+    z-index: 10;
     
     .botao{
         background: white;
         border: none;
         border-radius: 50%;
-        position: absolute;
         width: 4rem;
         height: 4rem;
-        bottom: 4rem;
-    }
-
-    .visible{
-        display: block;
+        transition: 0.5s all ease-out;
+        z-index: 1000;
     }
     
-    .hidden{
-        display: none;
+    .botao:hover{
+        transform: scale(1.1);
+    }
+    
+    &.visible{
+        transform: translateY(0);
+    }
+
+    &.visible .botao{
+        transform: rotate(180deg);
+    }
+    
+    &.hidden{
+        transform: translateY(16rem);
     }
 `;
 

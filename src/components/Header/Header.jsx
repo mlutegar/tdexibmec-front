@@ -1,5 +1,7 @@
 import {useNavigate} from "react-router-dom";
-import { Top } from "./Style";
+import { HeaderStyle } from "./Style";
+import {Logo} from "../../svgs/Logo";
+import {Sair, sair} from "../../svgs/Sair";
 
 
 
@@ -7,18 +9,18 @@ const Header = () => {
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        // Aqui você pode adicionar a lógica de logout, como limpar o token ou redirecionar o usuário
-        console.log("Logout realizado");
         navigate("/");
     }
 
+    const handleLogoClick = () => {
+        navigate("/cronograma");
+    }
+
     return (
-        <Top>
-            Logo
-            <button type={"button"} onClick={handleLogout}>
-                Sair
-            </button>
-        </Top>
+        <HeaderStyle>
+            <Logo onClick={handleLogoClick}/>
+            <Sair onClick={handleLogout}/>
+        </HeaderStyle>
     )
 }
 

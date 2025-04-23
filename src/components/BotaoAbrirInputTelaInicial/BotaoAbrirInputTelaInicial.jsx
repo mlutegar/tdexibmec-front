@@ -12,11 +12,11 @@ const BotaoAbrirInputTelaInicial = () => {
     }
 
     return (
-        <BotaoAbrirInputTelaInicialStyle>
+        <BotaoAbrirInputTelaInicialStyle className={isInputVisible ? "visible" : "hidden"}>
             <Seta className={'botao'} onClick={handleButtonClick}/>
 
             <InputTelaInicial
-                className={isInputVisible ? "visible" : "hidden"}
+                className={'input'}
             />
         </BotaoAbrirInputTelaInicialStyle>
     )
