@@ -1,6 +1,7 @@
 import {InputTelaInicialStyle} from "./Style";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
+import Botao from "../Botao/Botao";
 
 const InputTelaInicial = ({className}) => {
     const [name, setName] = useState('');
@@ -29,9 +30,9 @@ const InputTelaInicial = ({className}) => {
                 onChange={handleChange}
                 placeholder="digite seu nome"
             />
-            <button type="submit" disabled={!name.trim()}>
+            <Botao type="submit" disabled={!name.trim()}>
                 ENTRE
-            </button>
+            </Botao>
         </InputTelaInicialStyle>
     )
 }

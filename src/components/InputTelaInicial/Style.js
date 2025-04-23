@@ -40,22 +40,6 @@ const InputTelaInicialStyle = styled.form`
         font-weight: 400;
         line-height: normal;
     }
-    
-    button{
-        width: 13.0625rem;
-        height: 3rem;
-        flex-shrink: 0;
-        background: #CD0909;
-
-        color: #FFF;
-        text-align: center;
-        font-family: Inter;
-        font-size: 1.25rem;
-        font-style: italic;
-        font-weight: 400;
-        line-height: normal;
-        border: none;
-    }
 `;
 
 export {InputTelaInicialStyle};

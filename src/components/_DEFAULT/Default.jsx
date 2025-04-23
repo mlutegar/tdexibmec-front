@@ -1,8 +1,10 @@
-import { DefaultStyle } from "./Style";
+import {DefaultStyle} from "./Style";
 
-const Default = () => (
-  <DefaultStyle>
-  </DefaultStyle>
-)
+const Default = () => {
+    return (
+        <DefaultStyle>
+        </DefaultStyle>
+    )
+}
 
 export default Default;

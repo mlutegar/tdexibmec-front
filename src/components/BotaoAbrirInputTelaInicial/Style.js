@@ -22,6 +22,7 @@ const BotaoAbrirInputTelaInicialStyle = styled.div`
         height: 4rem;
         transition: 0.5s all ease-out;
         z-index: 1000;
+        cursor: pointer;
     }
     
     .botao:hover{
