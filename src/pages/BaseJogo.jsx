@@ -1,7 +1,7 @@
-import Header from "../components/Header/Header";
 import HeaderJogo from "../components/HeaderJogo/HeaderJogo";
+import {PontuacaoProvider} from "../context/PontuacaoProvider";
 
-const Base = (props) => (
+const BaseJogo = (props) => (
     <>
         <HeaderJogo/>
         <div className="container">
@@ -10,4 +10,4 @@ const Base = (props) => (
     </>
 )
 
-export default Base;
+export default BaseJogo;

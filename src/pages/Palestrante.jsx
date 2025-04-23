@@ -1,7 +1,6 @@
 import {useLocation, useNavigate} from "react-router-dom";
 import BaseJogo from "./BaseJogo";
 import BarraProgresso from "../components/BarraProgresso/BarraProgresso";
-import CardPergunta from "../components/CardPergunta/CardPergunta";
 import Alternativas from "../components/Alternativas/Alternativas";
 import Botao from "../components/Botao/Botao";
 import {Logo} from "../svgs/Logo";
@@ -9,11 +8,16 @@ import ValorAcerto from "../components/ValorAcerto/ValorAcerto";
 import Footer from "../components/Footer/Footer";
 import {useState} from "react";
 import TituloPergunta from "../components/TituloPergunta/TituloPergunta";
+import {usePontuacao} from "../context/PontuacaoProvider";
 
 const Palestrante = () => {
     const [alternativaSelecionada, setAlternativaSelecionada] = useState(null);
+    const [alternativaIncorreta, setAlternativaIncorreta] = useState(null);
+    const [mostrarRespostaCorreta, setMostrarRespostaCorreta] = useState(false);
     const [perguntaAtual, setPerguntaAtual] = useState(0);
+    const [textoBotao, setTextoBotao] = useState("ENVIAR");
 
+    const { pontuacao, adicionarPontos } = usePontuacao();
     const navigate = useNavigate();
     const location = useLocation();
     const {palestrante} = location.state;
@@ -24,15 +28,36 @@ const Palestrante = () => {
     };
 
     const handleEnviar = () => {
-        if (perguntaAtual === perguntas.length - 1) {
-            navigate("/ranking");
-        }
-
         if (alternativaSelecionada === perguntas[perguntaAtual].resposta) {
-            setPerguntaAtual(perguntaAtual + 1);
-            setAlternativaSelecionada(null);
+            setMostrarRespostaCorreta(true);
+            setTextoBotao("ACERTOU!!");
+            adicionarPontos();
+
+            setTimeout(() => {
+                if (perguntaAtual === perguntas.length - 1) {
+                    navigate("/ranking");
+                } else {
+                    setPerguntaAtual(perguntaAtual + 1);
+                    setAlternativaSelecionada(null);
+                    setMostrarRespostaCorreta(false);
+                    setTextoBotao("ENVIAR");
+                }
+            }, 1000);
         } else {
-            alert("Resposta incorreta");
+            setAlternativaIncorreta(alternativaSelecionada);
+            setMostrarRespostaCorreta(true);
+            setTextoBotao("ERROU..");
+
+            setTimeout(() => {
+                if (perguntaAtual === perguntas.length - 1) {
+                    navigate("/ranking");
+                } else {
+                    setPerguntaAtual(perguntaAtual + 1);
+                    setAlternativaSelecionada(null);
+                    setMostrarRespostaCorreta(false);
+                    setTextoBotao("ENVIAR");
+                }
+            }, 1000);
         }
     }
 
@@ -91,11 +116,13 @@ const Palestrante = () => {
             <Alternativas
                 alternativas={perguntas[perguntaAtual].alternativas}
                 alternativaSelecionada={alternativaSelecionada}
+                alternativaIncorreta={alternativaIncorreta}
+                respostaCorreta={mostrarRespostaCorreta ? perguntas[perguntaAtual].resposta : null}
                 handleSelecao={handleSelecao}
             />
 
             <Botao disabled={!alternativaSelecionada} type={"button"} onClick={handleEnviar}>
-                ENVIAR
+                {textoBotao}
             </Botao>
 
             <ValorAcerto

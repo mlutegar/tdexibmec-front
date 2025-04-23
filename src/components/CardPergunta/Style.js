@@ -17,7 +17,15 @@ const CardPerguntaStyle = styled.article`
         background: #CD0909;
     }
 
-    &.ativo {
+    &.incorreto {
+        background: #878787;
+    }
+    
+    &.correto {
+        background: #008000;
+    }
+
+    &.ativo, &.incorreto, &.correto {
         .texto-alternativa, .letra-alternativa {
             color: #FFF;
         }

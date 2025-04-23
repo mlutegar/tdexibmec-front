@@ -2,7 +2,7 @@ import {AlternativasStyle} from "./Style";
 import CardPergunta from "../CardPergunta/CardPergunta";
 import { useState } from "react";
 
-const Alternativas = ({alternativas, alternativaSelecionada, handleSelecao}) => {
+const Alternativas = ({alternativas, alternativaSelecionada, alternativaIncorreta, respostaCorreta, handleSelecao}) => {
     const transformarIdEmLetra = (id) => {
         const letras = ["A", "B", "C", "D"];
         return letras[id - 1];
@@ -16,7 +16,9 @@ const Alternativas = ({alternativas, alternativaSelecionada, handleSelecao}) => 
                     letraDaAlternativa={transformarIdEmLetra(alternativa.id)}
                     textoDaAlternativa={alternativa.texto}
                     selecionado={alternativaSelecionada === alternativa.id}
+                    incorreto={alternativaIncorreta === alternativa.id}
                     onSelecao={() => handleSelecao(alternativa.id)}
+                    correto={respostaCorreta === alternativa.id}
                 />
             ))}
         </AlternativasStyle>

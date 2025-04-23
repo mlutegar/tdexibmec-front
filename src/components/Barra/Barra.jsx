@@ -4,18 +4,18 @@ const Barra = ({
                    posicao = 1,
                    icone = "imagens/perfilDefault.png",
                    nome = "michel",
-                   pontuacao = 90
-}) => {
+                   pontuacao = 90,
+                   pontuacaoMaxima = 100
+               }) => {
 
     const calcularLargura = (pontuacao) => {
-        const larguraMaxima = 300; // Largura máxima em pixels
-        const pontuacaoMaxima = 100; // Pontuação máxima
+        const larguraMaxima = 16.6875; // Largura máxima em pixels
         const largura = (pontuacao / pontuacaoMaxima) * larguraMaxima;
         return largura;
     }
 
     return (
-        <BarraStyle>
+        <BarraStyle largura={calcularLargura(pontuacao)}>
             <div>
                 #{posicao}
             </div>

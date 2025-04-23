@@ -1,23 +1,23 @@
 import {Top3Style} from "./Style";
 import Coluna from "../Coluna/Coluna";
 
-const Top3 = () => {
+const Top3 = ({top3}) => {
     return (
         <Top3Style>
             <Coluna
                 posicaoNumero={2}
-                nomeCompetidor={"victor"}
-                iconeCompetidor={"imagens/perfilDefault.png"}
+                nomeCompetidor={top3[1].nome}
+                iconeCompetidor={top3[1].icone}
             />
             <Coluna
                 posicaoNumero={1}
-                nomeCompetidor={"Michel"}
-                iconeCompetidor={"imagens/perfilDefault.png"}
+                nomeCompetidor={top3[0].nome}
+                iconeCompetidor={top3[0].icone}
             />
             <Coluna
                 posicaoNumero={3}
-                nomeCompetidor={"matheus"}
-                iconeCompetidor={"imagens/perfilDefault.png"}
+                nomeCompetidor={top3[2].nome}
+                iconeCompetidor={top3[2].icone}
             />
         </Top3Style>
     )

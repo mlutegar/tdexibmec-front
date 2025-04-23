@@ -13,7 +13,9 @@ const InputTelaInicial = ({className}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('Nome enviado:', name);
+
+        localStorage.setItem('name', name);
+        localStorage.setItem('pontuacao', "0");
 
         navigate('/cronograma', {
             state: {name}

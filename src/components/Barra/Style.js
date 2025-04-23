@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const BarraStyle = styled.article`
-    width: 16.6875rem;
+    width: ${props => props.largura}rem;
     height: 3.625rem;
     flex-shrink: 0;
     background: #CD0909;

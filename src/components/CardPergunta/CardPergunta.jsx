@@ -1,8 +1,23 @@
 import {CardPerguntaStyle} from "./Style";
 
-const CardPergunta = ({letraDaAlternativa, textoDaAlternativa, selecionado, onSelecao}) => {
+const CardPergunta = ({letraDaAlternativa, textoDaAlternativa, selecionado, incorreto, correto, onSelecao}) => {
+    let className = "";
+    if (selecionado) {
+        if (incorreto) {
+            className = "incorreto";
+        }
+        else if (correto) {
+            className = "correto";
+        }
+        else {
+            className = "ativo";
+        }
+    } else if (correto) {
+        className = "correto";
+    }
+
     return (
-        <CardPerguntaStyle className={selecionado ? "ativo" : ""} onClick={onSelecao}>
+        <CardPerguntaStyle className={className} onClick={onSelecao}>
             <div className={"letra-alternativa"}>
                 {letraDaAlternativa}
             </div>
