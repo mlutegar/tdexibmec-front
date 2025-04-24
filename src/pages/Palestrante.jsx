@@ -24,7 +24,6 @@ const Palestrante = () => {
 
     const handleSelecao = (id) => {
         setAlternativaSelecionada(id);
-        console.log(id);
     };
 
     const handleEnviar = () => {

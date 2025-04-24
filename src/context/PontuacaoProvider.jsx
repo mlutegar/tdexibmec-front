@@ -15,6 +15,10 @@ export function PontuacaoProvider({ children }) {
 
     // Salva a pontuação no localStorage sempre que ela mudar
     useEffect(() => {
+        if (pontuacao === null) {
+            localStorage.removeItem('pontuacao');
+            return;
+        }
         localStorage.setItem('pontuacao', pontuacao.toString());
     }, [pontuacao]);
 

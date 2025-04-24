@@ -18,7 +18,7 @@ const Header = () => {
 
     return (
         <HeaderStyle>
-            <Logo onClick={handleLogoClick}/>
+            <Logo onClick={handleLogoClick} className={'logo'}/>
             <Sair onClick={handleLogout}/>
         </HeaderStyle>
     )

@@ -7,7 +7,13 @@ const HeaderStyle = styled.header`
     align-items: center;
     padding: 0 2.5rem;
     border-bottom: 5px solid #fff;
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
+    
+    .logo{
+        width: 9rem;
+        height: 1.375rem;
+    }
+    
 `
 
 export {HeaderStyle}

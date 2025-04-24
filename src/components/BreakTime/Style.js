@@ -6,8 +6,17 @@ const BreakTimeStyle = styled.article`
     display: flex;
     justify-content: space-around;
     align-items: center;
-    width: 80%;
+    width: 100%;
     padding: 1rem 0;
+    box-sizing: border-box;
+    margin: 0 2rem;
+
+    color: #FFF;
+    font-family: Inter;
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
     
     .horario{
         display: flex;

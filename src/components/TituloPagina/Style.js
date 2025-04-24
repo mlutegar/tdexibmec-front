@@ -2,11 +2,13 @@ import styled from "styled-components";
 
 const TituloPaginaStyle = styled.article`
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: flex-start;
     align-items: center;
     gap: 1rem;
-    margin-bottom: 2rem;
+    width: 100%;
+    padding: 0px 1.5rem;
+    box-sizing: border-box;
     
     .titulo{
         color: #FFF;

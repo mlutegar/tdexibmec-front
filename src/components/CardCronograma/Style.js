@@ -14,6 +14,16 @@ const CardCronogramaStyle = styled.article`
         border-radius: 3.125rem;
         border: 2px solid #FFF;
     }
+    
+    &.dentro{
+        .nomePalestrante {
+            color: #CD0909 !important;
+        }
+        
+        img {
+            border: 2px solid #CD0909 !important;
+        }
+    }
 
     .informacoesPalestrante {
         display: flex;
@@ -43,7 +53,6 @@ const CardCronogramaStyle = styled.article`
         svg {
             width: 2.5rem;
             height: 2.5rem;
-            fill: #FFF;
         }
     }
 `;
