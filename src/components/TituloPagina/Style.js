@@ -3,12 +3,11 @@ import styled from "styled-components";
 const TituloPaginaStyle = styled.article`
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
     align-items: center;
     gap: 1rem;
-    width: 100%;
-    padding: 0px 1.5rem;
+    width: 320px;
     box-sizing: border-box;
+    justify-content: space-between;
     
     .titulo{
         color: #FFF;

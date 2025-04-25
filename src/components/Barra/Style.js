@@ -1,4 +1,13 @@
-import styled from "styled-components";
+import styled, {keyframes} from "styled-components";
+
+const expandWidth = keyframes`
+  from {
+    width: 0;
+  }
+  to {
+    width: ${props => props.largura}rem;
+  }
+`;
 
 const BarraStyle = styled.article`
     width: ${props => props.largura}rem;
@@ -9,7 +18,8 @@ const BarraStyle = styled.article`
     justify-content: space-between;
     align-items: center;
     padding: 0 1.125rem;
-
+    animation: ${expandWidth} 5s ease-out forwards;
+    
     color: #FFF;
     font-family: Inter;
     font-size: 0.875rem;

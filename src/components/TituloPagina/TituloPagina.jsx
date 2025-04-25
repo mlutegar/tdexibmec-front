@@ -1,8 +1,8 @@
 import {TituloPaginaStyle} from "./Style";
 
-const TituloPagina = ({titulo, subtitulo}) => {
+const TituloPagina = ({id, titulo, subtitulo, style}) => {
     return (
-        <TituloPaginaStyle>
+        <TituloPaginaStyle id={id} style={style}>
             <div className={'titulo'}>
                 {titulo}
             </div>

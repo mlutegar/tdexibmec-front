@@ -11,7 +11,7 @@ const HeaderTelaInicialStyle = styled.article`
   .boas-vindas {
       color: #FFF;
       font-family: Inter;
-      font-size: 1rem;
+      font-size: 1.5rem;
       font-style: italic;
       font-weight: 400;
       line-height: normal;
@@ -24,7 +24,7 @@ const HeaderTelaInicialStyle = styled.article`
         .titulo-principal {
             color: #FFF;
             font-family: Inter;
-            font-size: 1.5rem;
+            font-size: 2rem;
             font-style: normal;
             font-weight: 600;
             line-height: normal;
@@ -34,12 +34,17 @@ const HeaderTelaInicialStyle = styled.article`
         .titulo-secundario {
             color: #CD0909;
             font-family: Inter;
-            font-size: 2.5rem;
+            font-size: 3.4rem;
             font-style: italic;
             font-weight: 700;
             line-height: normal;
             letter-spacing: 0.15rem;
         }
+    }
+    
+    .logo svg{
+        width: 10rem;
+        height: 2rem;
     }
     
 `;

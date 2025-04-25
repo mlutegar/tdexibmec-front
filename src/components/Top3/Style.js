@@ -5,6 +5,7 @@ const Top3Style = styled.article`
     gap: 0.5rem;
     justify-content: flex-end;
     align-items: flex-end;
+    height: 15rem;
 `;
 
 export {Top3Style};

@@ -6,6 +6,9 @@ import {usePontuacao} from "../../context/PontuacaoProvider";
 
 const HeaderJogo = () => {
     const navigate = useNavigate();
+
+
+
     const { pontuacao } = usePontuacao();
 
     const handleSairDoQuiz = () => {

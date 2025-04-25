@@ -14,6 +14,18 @@ const CardCronogramaStyle = styled.article`
         border-radius: 3.125rem;
         border: 2px solid #FFF;
     }
+
+    &.posterior{
+        .nomePalestrante {
+            color: #A7A7A7 !important;
+        }
+        
+        img {
+            border-radius: 3.125rem;
+            border: 3px solid #878787;
+            filter: saturate(0%);
+        }
+    }
     
     &.dentro{
         .nomePalestrante {

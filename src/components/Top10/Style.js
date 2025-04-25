@@ -6,6 +6,7 @@ const Top5Style = styled.article`
     align-items: flex-start;
     justify-content: flex-start;
     gap: 0.5rem;
+    width: 100%;
 `;
 
 export {Top5Style};

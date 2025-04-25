@@ -16,6 +16,7 @@ const InputTelaInicial = ({className}) => {
 
         localStorage.setItem('name', name);
         localStorage.setItem('pontuacao', "0");
+        localStorage.setItem('toolTipCronograma', "false");
 
         navigate('/cronograma', {
             state: {name}

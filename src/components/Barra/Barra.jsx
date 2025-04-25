@@ -9,7 +9,7 @@ const Barra = ({
                }) => {
 
     const calcularLargura = (pontuacao) => {
-        const larguraMaxima = 16.6875; // Largura máxima em pixels
+        const larguraMaxima = 15; // Largura máxima em pixels
         const largura = (pontuacao / pontuacaoMaxima) * larguraMaxima;
         return largura;
     }

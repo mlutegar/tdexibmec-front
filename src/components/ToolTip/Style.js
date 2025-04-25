@@ -20,10 +20,28 @@ const ToolTipStyle = styled.article`
     font-weight: 700;
     line-height: normal;
     
-    position: fixed;
+    position: absolute;
     top: ${props => props.top}rem;
     left: ${props => props.left}rem;
     z-index: 99999;
+    
+    &.direita{
+        align-items: flex-end;
+    }
+    
+    .ponta{
+        position: absolute;
+    }
+    
+    .esquerda{
+        top: -0.6rem;
+        left: 0.4rem;
+    }
+    
+    .direita{
+        top: -0.6rem;
+        right: 0.4rem;
+    }
     
     .texto{
         max-width: ${19-3}rem;

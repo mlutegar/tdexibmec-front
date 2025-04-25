@@ -1,4 +1,15 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+const expandHeight = keyframes`
+    from {
+        height: 0;
+        margin-top: auto;
+    }
+    to {
+        height: ${props => props.altura}rem;
+        margin-top: 0;
+    }
+`;
 
 const ColunaStyle = styled.article`
     display: flex;
@@ -18,7 +29,7 @@ const ColunaStyle = styled.article`
     
     .torre {
         width: 3.4375rem;
-        height: 7.75rem;
+        height: ${props => props.altura || '7.75rem'};
         flex-shrink: 0;
         background: #CD0909;
         display: flex;
@@ -30,6 +41,8 @@ const ColunaStyle = styled.article`
         font-style: normal;
         font-weight: 900;
         line-height: normal;
+        animation: ${expandHeight} 5s ease-out forwards;
+        transform-origin: bottom;
     }
 `;
 
