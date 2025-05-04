@@ -75,7 +75,7 @@ const CardCronograma = ({
     }
 
     return (
-        <CardCronogramaStyle className={situacao} id={id} onClick={handleToggleModal}>
+        <CardCronogramaStyle className={`${situacao} ${isModalOpen ? 'active' : 'hidden'}`} id={id} onClick={handleToggleModal}>
             <img
                 src={urlFotoConvidado}
                 alt="Foto do convidado"

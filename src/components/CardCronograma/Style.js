@@ -14,6 +14,10 @@ const CardCronogramaStyle = styled.article`
         border-radius: 3.125rem;
         border: 2px solid #FFF;
     }
+    
+    &.active{
+        z-index: 9999;
+    }
 
     &.posterior{
         .nomePalestrante {
