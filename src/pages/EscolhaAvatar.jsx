@@ -9,6 +9,9 @@ const EscolhaAvatar = () => {
     const navigate = useNavigate();
 
     const handleAvatarSelection = () => {
+        const selectedAvatar = document.querySelector('.swiper-slide-active [id]');
+        const avatarId = selectedAvatar?.id;
+        localStorage.setItem("avatar", avatarId);
         navigate('/cronograma');
     }
 

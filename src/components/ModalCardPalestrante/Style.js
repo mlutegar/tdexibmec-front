@@ -25,7 +25,7 @@ const ModalCardPalestranteStyle = styled.article`
         height: 17.5rem;
         flex-shrink: 0;
         aspect-ratio: 1/1;
-        border-radius: 0.625rem;
+        border-radius: 0.625rem !important;
         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
         border: none;
     }
@@ -71,6 +71,7 @@ const ModalCardPalestranteStyle = styled.article`
         position: absolute;
         right: 1rem;
         top: 1.5rem;
+        z-index: 999;
     }
 `;
 

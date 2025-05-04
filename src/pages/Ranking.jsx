@@ -10,6 +10,7 @@ import {useEffect, useState} from "react";
 
 const Ranking = () => {
     const navigate = useNavigate();
+    const [nomePalestrante, setNomePalestrante] = useState(localStorage.getItem("palestrante") || "Palestrante");
 
     const [ranking, setRanking] = useState([]);
     const [botaoDesativado, setBotaoDesativado] = useState(true);
@@ -18,6 +19,8 @@ const Ranking = () => {
     const [pontosJogadorAtual, setPontosJogadorAtual] = useState(localStorage.getItem("pontuacao"));
 
     useEffect(() => {
+        console.log("state", location.state);
+
         adicionarJogadorAtualAoRanking();
         desativarBotaoPor5Segundos();
     }, []);
@@ -27,11 +30,11 @@ const Ranking = () => {
     }
 
     const top5 = [
-        {nome: "Lucas", pontos: 100},
-        {nome: "Maria", pontos: 90},
-        {nome: "João", pontos: 80},
-        {nome: "Ana", pontos: 70},
-        {nome: "Pedro", pontos: 60}
+        {nome: "Lucas", pontos: 100, avatar: "robo2"},
+        {nome: "Maria", pontos: 90, avatar: "homem2"},
+        {nome: "João", pontos: 80, avatar: "mulher1"},
+        {nome: "Ana", pontos: 70, avatar: "mulher2"},
+        {nome: "Pedro", pontos: 60, avatar: "robo1"}
     ];
 
     const adicionarJogadorAtualAoRanking = () => {
@@ -56,7 +59,7 @@ const Ranking = () => {
     return (
         <BaseJogo>
             <TituloPagina
-                titulo={"Resultado da dinâmica do convidado tal"}
+                titulo={"Resultado da dinâmica do " + nomePalestrante}
                 subtitulo={
                     <>
                         <Botao className={"mini"} onClick={handleClick}>

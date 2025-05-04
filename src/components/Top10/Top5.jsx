@@ -22,7 +22,7 @@ const Top5 = ({top5}) => {
     return (
         <Top5Style>
             {top5.map((item, index) => (
-                <Barra key={index} posicao={index+1} nome={item.nome} pontuacao={item.pontos} pontuacaoMaxima={pontuacaoMaximaDoTop5}/>
+                <Barra key={index} posicao={index+1} icone={item.avatar} nome={item.nome} pontuacao={item.pontos} pontuacaoMaxima={pontuacaoMaximaDoTop5}/>
             ))}
         </Top5Style>
     )

@@ -4,11 +4,21 @@ const PerfilStyle = styled.article`
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 1rem;
+
+    .avatar{
+        width: 5rem;
+        height: 5rem;
+
+        svg{
+            width: 3.5rem;
+        }
+    }
 
     .perfil {
         display: flex;
         flex-direction: column;
-
+        
         .sair {
             display: flex;
             align-items: center;

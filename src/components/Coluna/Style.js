@@ -17,6 +17,15 @@ const ColunaStyle = styled.article`
     justify-content: center;
     align-items: center;
     gap: 1rem;
+
+    .avatar{
+        width: 4rem;
+        height: 4rem;
+
+        svg{
+            width: 2.5rem;
+        }
+    }
     
     .icone{
         img{

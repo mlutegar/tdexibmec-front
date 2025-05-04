@@ -19,6 +19,7 @@ const BarraStyle = styled.article`
     align-items: center;
     padding: 0 1.125rem;
     animation: ${expandWidth} 5s ease-out forwards;
+    gap: 1rem;
     
     color: #FFF;
     font-family: Inter;
@@ -26,6 +27,15 @@ const BarraStyle = styled.article`
     font-style: normal;
     font-weight: 900;
     line-height: normal;
+
+    .avatar{
+        width: 3rem;
+        height: 3rem;
+
+        svg{
+            width: 2rem;
+        }
+    }
     
     .info {
         display: flex;

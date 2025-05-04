@@ -6,7 +6,7 @@ import Botao from "../components/Botao/Botao";
 import {Logo} from "../svgs/Logo";
 import ValorAcerto from "../components/ValorAcerto/ValorAcerto";
 import Footer from "../components/Footer/Footer";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import TituloPergunta from "../components/TituloPergunta/TituloPergunta";
 import {usePontuacao} from "../context/PontuacaoProvider";
 
@@ -16,6 +16,7 @@ const Palestrante = () => {
     const [mostrarRespostaCorreta, setMostrarRespostaCorreta] = useState(false);
     const [perguntaAtual, setPerguntaAtual] = useState(0);
     const [textoBotao, setTextoBotao] = useState("ENVIAR");
+    const [completedQuizzes, setCompletedQuizzes] = useState([]);
 
     const { pontuacao, adicionarPontos } = usePontuacao();
     const navigate = useNavigate();
@@ -26,7 +27,21 @@ const Palestrante = () => {
         setAlternativaSelecionada(id);
     };
 
+    const enviarParaRanking = () => {
+        const updatedQuizzes = [...completedQuizzes, palestrante.nome];
+        setCompletedQuizzes(updatedQuizzes);
+        localStorage.setItem("completedQuizzes", JSON.stringify(updatedQuizzes));
+
+        navigate('/ranking', {
+            state: {
+                palestrante: palestrante
+            }
+        });
+    }
+
     const handleEnviar = () => {
+        console.log("palestrante", palestrante);
+
         if (alternativaSelecionada === perguntas[perguntaAtual].resposta) {
             setMostrarRespostaCorreta(true);
             setTextoBotao("ACERTOU!!");
@@ -34,7 +49,7 @@ const Palestrante = () => {
 
             setTimeout(() => {
                 if (perguntaAtual === perguntas.length - 1) {
-                    navigate("/ranking");
+                    enviarParaRanking()
                 } else {
                     setPerguntaAtual(perguntaAtual + 1);
                     setAlternativaSelecionada(null);
@@ -49,7 +64,7 @@ const Palestrante = () => {
 
             setTimeout(() => {
                 if (perguntaAtual === perguntas.length - 1) {
-                    navigate("/ranking");
+                    enviarParaRanking();
                 } else {
                     setPerguntaAtual(perguntaAtual + 1);
                     setAlternativaSelecionada(null);
@@ -64,6 +79,20 @@ const Palestrante = () => {
         const arredondar = (num) => Math.round(num * 100) / 100;
         return arredondar((perguntaAtual / perguntas.length) * 100);
     }
+
+    useEffect(() => {
+        const salvandoNomeDoPalestrante = () => {
+            const nomePalestrante = palestrante.nome;
+            localStorage.setItem("palestrante", nomePalestrante);
+        }
+
+        salvandoNomeDoPalestrante();
+    }, [palestrante]);
+
+    useEffect(() => {
+        const stored = JSON.parse(localStorage.getItem("completedQuizzes")) || [];
+        setCompletedQuizzes(stored);
+    }, []);
 
     const perguntas = [
         {

@@ -1,8 +1,11 @@
 import {BarraStyle} from "./Style";
+import BotaoAvatar from "../BotaoAvatar/BotaoAvatar";
+import {Homem1} from "../../svgs/avatars/Homem1";
+import {getAvatar} from "../../Avatar";
 
 const Barra = ({
                    posicao = 1,
-                   icone = "imagens/perfilDefault.png",
+                   icone = "homem1",
                    nome = "michel",
                    pontuacao = 90,
                    pontuacaoMaxima = 100
@@ -20,7 +23,12 @@ const Barra = ({
                 #{posicao}
             </div>
             <div className={"info"}>
-                <img src={icone} alt="imagem de perfil" className={"imagem-perfil"}/>
+                <BotaoAvatar
+                    className={'avatar'}
+                    ativado={false}
+                >
+                    { getAvatar(icone) }
+                </BotaoAvatar>
                 {nome}
             </div>
             <div className={"container-pontuacao"}>

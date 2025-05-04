@@ -1,9 +1,12 @@
 import {ColunaStyle} from "./Style";
+import BotaoAvatar from "../BotaoAvatar/BotaoAvatar";
+import {getAvatar} from "../../Avatar";
+import {Homem1} from "../../svgs/avatars/Homem1";
 
 const Coluna = ({
                     posicaoNumero = 1,
                     nomeCompetidor = "michel",
-                    iconeCompetidor = "imagens/perfilDefault.png",
+                    iconeCompetidor = "homem1",
                     altura = 100
                 }) => {
 
@@ -24,7 +27,12 @@ const Coluna = ({
                 {nomeCompetidor}
             </div>
             <div className={'icone'}>
-                <img src={iconeCompetidor} alt="icone" style={{height: altura}}/>
+                <BotaoAvatar
+                    className={'avatar'}
+                    ativado={true}
+                >
+                    { getAvatar(iconeCompetidor) }
+                </BotaoAvatar>
             </div>
             <div className={'torre'} style={{height: calcularAltura(posicaoNumero) + 'rem'}}>
                 {posicaoNumero}

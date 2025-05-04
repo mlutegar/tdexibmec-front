@@ -14,6 +14,14 @@ const HeaderStyle = styled.header`
         height: 1.375rem;
     }
     
+    .perfil{
+        width: 3rem;
+        height: 3rem;
+        
+        svg{
+            width: 2rem;
+        }
+    }
 `
 
 export {HeaderStyle}

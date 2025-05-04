@@ -1,13 +1,21 @@
 import {PerfilStyle} from "./Style";
 import {SetaSair} from "../../svgs/SetaSair";
 import {useState} from "react";
+import BotaoAvatar from "../BotaoAvatar/BotaoAvatar";
+import {getAvatar} from "../../Avatar";
 
-const Perfil = ({onClick}) => {
+const PerfilHeader = ({onClick}) => {
     const [nome, setNome] = useState(localStorage.getItem("name") || "Jogador");
+    const [avatarId, setAvatarId] = useState(localStorage.getItem("avatar") || "homem3");
 
     return (
         <PerfilStyle>
-            <img src={"imagens/perfilDefault.png"} alt="Perfil"/>
+            <BotaoAvatar
+                className={'avatar'}
+                ativado={true}
+            >
+                { getAvatar(avatarId) }
+            </BotaoAvatar>
 
             <div className="perfil">
                 {nome}
@@ -20,4 +28,4 @@ const Perfil = ({onClick}) => {
     )
 }
 
-export default Perfil;
+export default PerfilHeader;

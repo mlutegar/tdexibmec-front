@@ -1,13 +1,11 @@
 import {useNavigate} from "react-router-dom";
 import { HeaderJogoStyle } from "./Style";
 import Pontuacao from "../Pontuacao/Pontuacao";
-import Perfil from "../Perfil/Perfil";
+import PerfilHeader from "../PerfilHeader/PerfilHeader";
 import {usePontuacao} from "../../context/PontuacaoProvider";
 
 const HeaderJogo = () => {
     const navigate = useNavigate();
-
-
 
     const { pontuacao } = usePontuacao();
 
@@ -17,7 +15,7 @@ const HeaderJogo = () => {
 
     return (
         <HeaderJogoStyle>
-            <Perfil onClick={handleSairDoQuiz}/>
+            <PerfilHeader onClick={handleSairDoQuiz}/>
             <Pontuacao
                 valor={pontuacao} // Não precisa mais do parseInt pois já vem como número
             />

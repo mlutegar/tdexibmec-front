@@ -1,15 +1,18 @@
 import {useNavigate} from "react-router-dom";
 import { HeaderStyle } from "./Style";
 import {Logo} from "../../svgs/Logo";
-import {Sair, sair} from "../../svgs/Sair";
+import BotaoAvatar from "../BotaoAvatar/BotaoAvatar";
+import { getAvatar } from '../../Avatar';
+import {useState} from "react";
 
 
 
 const Header = () => {
     const navigate = useNavigate();
+    const [avatarId, setAvatarId] = useState(localStorage.getItem("avatar") || "homem3");
 
-    const handleLogout = () => {
-        navigate("/");
+    const handlePerfil = () => {
+        navigate("/perfil");
     }
 
     const handleLogoClick = () => {
@@ -19,7 +22,13 @@ const Header = () => {
     return (
         <HeaderStyle>
             <Logo onClick={handleLogoClick} className={'logo'}/>
-            <Sair onClick={handleLogout}/>
+            <BotaoAvatar
+                className={'perfil'}
+                ativado={true}
+                onClick={handlePerfil}
+            >
+                { getAvatar(avatarId) }
+            </BotaoAvatar>
         </HeaderStyle>
     )
 }

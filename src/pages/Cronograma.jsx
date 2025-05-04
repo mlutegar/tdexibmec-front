@@ -3,20 +3,30 @@ import {useNavigate} from "react-router-dom";
 import CardCronograma from "../components/CardCronograma/CardCronograma";
 import BreakTime from "../components/BreakTime/BreakTime";
 import TituloPagina from "../components/TituloPagina/TituloPagina";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import ToolTip from "../components/ToolTip/ToolTip";
 import TelaPreta from "../components/TelaPreta/TelaPreta";
 import MensagemToolTip2 from "../components/MensagemToolTip2/MensagemToolTip2";
+import palestrante from "./Palestrante";
 
 const Cronograma = () => {
     const QUANTIDADE_MAXIMA_DE_TOOL_TIPS = 3;
-
     const navigate = useNavigate();
 
     const [quantidadeDeToolTipsClicados, setQuantidadeDeToolTipsClicados] = useState(0);
     const [ehPraMostrarToolTip, setEhPraMostrarToolTip] = useState(localStorage.getItem("toolTipCronograma") !== "true");
+    const [completedQuizzes, setCompletedQuizzes] = useState([]);
 
     const handleClick = (palestrante) => {
+        if (completedQuizzes.includes(palestrante.nome)) {
+            navigate('/ranking', {
+                state: {
+                    palestrante: palestrante
+                }
+            });
+            return;
+        }
+
         navigate('/palestrante', {
             state: {
                 palestrante: palestrante
@@ -35,7 +45,7 @@ const Cronograma = () => {
     const convidados = [
         {
             nome: "Convidado 1",
-            horario_inicio: "09:00",
+            horario_inicio: "00:00",
             horario_fim: "11:00",
         },
         {
@@ -114,6 +124,11 @@ const Cronograma = () => {
 
         setQuantidadeDeToolTipsClicados(0);
     }
+
+    useEffect(() => {
+        const stored = JSON.parse(localStorage.getItem("completedQuizzes")) || [];
+        setCompletedQuizzes(stored);
+    }, []);
 
     return (
         <Base>
