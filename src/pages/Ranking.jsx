@@ -56,7 +56,14 @@ const Ranking = () => {
     return (
         <BaseJogo>
             <TituloPagina
-                titulo={"Ranking final"}
+                titulo={"Resultado da dinâmica do convidado tal"}
+                subtitulo={
+                    <>
+                        <Botao className={"mini"} onClick={handleClick}>
+                            SAIR
+                        </Botao>
+                    </>
+                }
             />
             {ranking.length > 4 && (
                 <>
@@ -68,10 +75,6 @@ const Ranking = () => {
                     />
                 </>
             )}
-
-            <Botao onClick={handleClick} disabled={botaoDesativado}>
-                AVANÇAR
-            </Botao>
             <Footer>
                 <Logo/>
             </Footer>

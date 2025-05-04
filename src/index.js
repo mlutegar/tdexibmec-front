@@ -6,6 +6,7 @@ import Cronograma from "./pages/Cronograma";
 import Palestrante from "./pages/Palestrante";
 import Ranking from "./pages/Ranking";
 import {PontuacaoProvider} from "./context/PontuacaoProvider";
+import EscolhaAvatar from "./pages/EscolhaAvatar";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
@@ -16,6 +17,7 @@ root.render(
             <PontuacaoProvider>
                 <Routes>
                     <Route path="/" element={<Home/>}/>
+                    <Route path="/avatar" element={<EscolhaAvatar/>}/>
                     <Route path="/cronograma" element={<Cronograma/>}/>
                     <Route path="/palestrante" element={<Palestrante/>}/>
                     <Route path="/ranking" element={<Ranking/>}/>

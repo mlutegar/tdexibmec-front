@@ -17,11 +17,18 @@ module.exports = {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: "babel-loader"
-      }
+      },
+      {
+        test: /\.css$/i,
+        use: [
+          'style-loader',   // injeta <style> na página
+          'css-loader'      // interpreta @import e url()
+        ],
+      },
     ]
   },
   resolve: {
-    extensions: [".js", ".jsx"],
+    extensions: [".js", ".jsx", ".css"],
   },
   plugins: [
     new CopyWebpackPlugin(

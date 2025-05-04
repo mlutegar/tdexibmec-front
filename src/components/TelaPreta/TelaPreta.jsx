@@ -1,8 +1,9 @@
 import {TelaPretaStyle} from "./Style";
 
-const TelaPreta = ({className}) => {
+const TelaPreta = ({className, children}) => {
     return (
         <TelaPretaStyle className={className}>
+            {children}
         </TelaPretaStyle>
     )
 }

@@ -1,6 +1,8 @@
 import {CardCronogramaStyle} from "./Style";
 import {SetaLevarPaginaInteracao} from "../../svgs/SetaLevarPaginaInteracao";
 import {useEffect, useState} from "react";
+import ModalCardPalestrante from "../ModalCardPalestrante/ModalCardPalestrante";
+import TelaPreta from "../TelaPreta/TelaPreta";
 
 const CardCronograma = ({
                             urlFotoConvidado = "imagens/fotoDefaultCronogramaPalestrante.png",
@@ -12,6 +14,12 @@ const CardCronograma = ({
                             id
                         }) => {
     const [currentTime, setCurrentTime] = useState(new Date());
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const [situacao, setSituacao] = useState('anterior');
+    const [onClickSituacao, setOnClickSituacao] = useState(() => onClick);
+    const [esperando, setEsperando] = useState(false);
+    const [textoBotaoModal, setTextoBotaoModal] = useState('DINÂMICA');
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -21,6 +29,40 @@ const CardCronograma = ({
         return () => clearInterval(timer);
     }, []);
 
+    useEffect(() => {
+        const compararHorarios = (horarioInicio, horarioFim) => {
+            const [horaInicio, minutoInicio] = horarioInicio.split(':').map(Number);
+            const [horaFim, minutoFim] = horarioFim.split(':').map(Number);
+            const [horaAtual, minutoAtual] = getFormattedTime().split(':').map(Number);
+
+            const inicio = new Date();
+            inicio.setHours(horaInicio, minutoInicio);
+
+            const fim = new Date();
+            fim.setHours(horaFim, minutoFim);
+
+            const atual = new Date();
+            atual.setHours(horaAtual, minutoAtual);
+
+            if (atual < inicio) {
+                setTextoBotaoModal('ESPERANDO..');
+                setEsperando(true);
+                setSituacao('anterior');
+            } else if (atual > fim) {
+                setTextoBotaoModal('VER RANKING');
+                setEsperando(false);
+                setSituacao('posterior');
+                setOnClickSituacao(() => onClickFinalizado);
+            } else {
+                setTextoBotaoModal('DINÂMICA');
+                setEsperando(false);
+                setSituacao('dentro');
+            }
+        }
+
+        compararHorarios(horarioInicio, horarioFim)
+    }, [horarioInicio, horarioFim, currentTime]);
+
     const getFormattedTime = () => {
         const now = new Date();
         const hours = now.getHours().toString().padStart(2, '0');
@@ -28,33 +70,12 @@ const CardCronograma = ({
         return `${hours}:${minutes}`;
     };
 
-    const compararHorarios = (horarioInicio, horarioFim) => {
-        const [horaInicio, minutoInicio] = horarioInicio.split(':').map(Number);
-        const [horaFim, minutoFim] = horarioFim.split(':').map(Number);
-        const [horaAtual, minutoAtual] = getFormattedTime().split(':').map(Number);
-
-        const inicio = new Date();
-        inicio.setHours(horaInicio, minutoInicio);
-
-        const fim = new Date();
-        fim.setHours(horaFim, minutoFim);
-
-        const atual = new Date();
-        atual.setHours(horaAtual, minutoAtual);
-
-        if (atual < inicio) {
-            return 'anterior';
-        } else if (atual > fim) {
-            return 'posterior';
-        } else {
-            return 'dentro';
-        }
+    const handleToggleModal = () => {
+        setIsModalOpen(prev => !prev);
     }
 
-    const className = compararHorarios(horarioInicio, horarioFim);
-
     return (
-        <CardCronogramaStyle className={className} id={id}>
+        <CardCronogramaStyle className={situacao} id={id} onClick={handleToggleModal}>
             <img
                 src={urlFotoConvidado}
                 alt="Foto do convidado"
@@ -71,7 +92,7 @@ const CardCronograma = ({
             </div>
 
             <div className={'setaEnviarParaPaginaPalestrante'}>
-                {compararHorarios(horarioInicio, horarioFim) === 'anterior' && (
+                {situacao === 'anterior' && (
                     <div className={'toolTip'}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
                             <g clipPath="url(#clip0_45_430)">
@@ -90,7 +111,7 @@ const CardCronograma = ({
                         </svg>
                     </div>
                 )}
-                {compararHorarios(horarioInicio, horarioFim) === 'posterior' && (
+                {situacao === 'posterior' && (
                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none"
                          onClick={onClickFinalizado}>
                         <path fillRule="evenodd" clipRule="evenodd"
@@ -98,7 +119,7 @@ const CardCronograma = ({
                               fill="white"/>
                     </svg>
                 )}
-                {compararHorarios(horarioInicio, horarioFim) === 'dentro' && (
+                {situacao === 'dentro' && (
                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none"
                          onClick={onClick}>
                         <path
@@ -111,8 +132,21 @@ const CardCronograma = ({
                               strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                 )}
-                {/*<SetaLevarPaginaInteracao onClick={onClick}/>*/}
             </div>
+
+            <TelaPreta className={isModalOpen ? 'active' : 'hidden'}>
+                <ModalCardPalestrante
+                    className={isModalOpen ? 'modal active' : 'modal'}
+                    onClick={handleToggleModal}
+                    textoBotao={textoBotaoModal}
+                    disabled={esperando}
+                    nomeConvidado={nomeConvidado}
+                    horaInicio={horarioInicio}
+                    horaFim={horarioFim}
+                    onClickBotao={onClickSituacao}
+                />
+            </TelaPreta>
+
         </CardCronogramaStyle>
     )
 };

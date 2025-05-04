@@ -1,8 +1,8 @@
 import {BotaoStyle} from "./Style";
 
-const Botao = ({type, disabled, children, onClick}) => {
+const Botao = ({type, disabled, children, onClick, className}) => {
     return (
-        <BotaoStyle type={type} disabled={disabled} onClick={onClick}>
+        <BotaoStyle type={type} disabled={disabled} onClick={onClick} className={className}>
             {children}
         </BotaoStyle>
     )

@@ -1,5 +1,4 @@
 import HeaderJogo from "../components/HeaderJogo/HeaderJogo";
-import {PontuacaoProvider} from "../context/PontuacaoProvider";
 
 const BaseJogo = (props) => (
     <>
