@@ -75,7 +75,6 @@ const CardCronograma = ({
     }
 
     const handleFecharModal = () => {
-        console.log('clicou');
         setIsModalOpen(false);
     }
 

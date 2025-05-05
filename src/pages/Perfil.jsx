@@ -10,6 +10,11 @@ const Perfil = () => {
     const handleLogout = () => {
         localStorage.removeItem("name");
         localStorage.removeItem("avatar");
+        localStorage.removeItem("pontuacao");
+        localStorage.removeItem("toolTipCronograma");
+        localStorage.removeItem("id");
+        localStorage.removeItem("palestrante");
+        localStorage.removeItem("completedQuizzes");
         navigate("/");
     }
 

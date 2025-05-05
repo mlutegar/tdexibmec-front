@@ -15,7 +15,6 @@ const SelecoesAvatar = () => {
         const slideEl = swiper.slides[swiper.activeIndex];
         const btn = slideEl.querySelector('[id]');
         const id = btn?.id;
-        console.log(id);
         setAtivo(id);
     }
 

@@ -9,6 +9,7 @@ import Footer from "../components/Footer/Footer";
 import {useEffect, useState} from "react";
 import TituloPergunta from "../components/TituloPergunta/TituloPergunta";
 import {usePontuacao} from "../context/PontuacaoProvider";
+import Cookies from "js-cookie";
 
 const Palestrante = () => {
     const [alternativaSelecionada, setAlternativaSelecionada] = useState(null);
@@ -27,21 +28,50 @@ const Palestrante = () => {
         setAlternativaSelecionada(id);
     };
 
-    const enviarParaRanking = () => {
-        const updatedQuizzes = [...completedQuizzes, palestrante.nome];
+    const enviarParaRanking = async () => {
+        const updatedQuizzes = [...completedQuizzes, 1];
         setCompletedQuizzes(updatedQuizzes);
         localStorage.setItem("completedQuizzes", JSON.stringify(updatedQuizzes));
+        const espectador = localStorage.getItem("id");
+        const palestrante = 1;
 
-        navigate('/ranking', {
-            state: {
-                palestrante: palestrante
-            }
+        const resposta = await adicionarPontosAoBackend(espectador, palestrante, pontuacao);
+        console.log(resposta);
+
+        if (resposta) {
+            console.log("Pontos enviados com sucesso:", resposta);
+            navigate('/ranking');
+        }
+    }
+
+    const adicionarPontosAoBackend = async (espectador, palestrante, score) => {
+        console.log(espectador, palestrante, score);
+
+        const csrftoken = Cookies.get('csrftoken');
+        const response = await fetch("http://127.0.0.1:8000/api/scores/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrftoken,
+            },
+            body: JSON.stringify({
+                espectador: espectador,
+                palestrante: palestrante,
+                score: score,
+            }),
         });
+
+        if (!response.ok) {
+            console.error("Erro ao adicionar pontos ao backend");
+            return null;
+        }
+
+        const data = await response.json();
+        console.log("Pontos adicionados com sucesso:", data);
+        return data;
     }
 
     const handleEnviar = () => {
-        console.log("palestrante", palestrante);
-
         if (alternativaSelecionada === perguntas[perguntaAtual].resposta) {
             setMostrarRespostaCorreta(true);
             setTextoBotao("ACERTOU!!");
@@ -49,7 +79,9 @@ const Palestrante = () => {
 
             setTimeout(() => {
                 if (perguntaAtual === perguntas.length - 1) {
-                    enviarParaRanking()
+                    enviarParaRanking().then(r => {
+                        console.log(r);
+                    });
                 } else {
                     setPerguntaAtual(perguntaAtual + 1);
                     setAlternativaSelecionada(null);
@@ -64,7 +96,9 @@ const Palestrante = () => {
 
             setTimeout(() => {
                 if (perguntaAtual === perguntas.length - 1) {
-                    enviarParaRanking();
+                    enviarParaRanking().then(r => {
+                        console.log(r);
+                    });
                 } else {
                     setPerguntaAtual(perguntaAtual + 1);
                     setAlternativaSelecionada(null);
@@ -82,12 +116,12 @@ const Palestrante = () => {
 
     useEffect(() => {
         const salvandoNomeDoPalestrante = () => {
-            const nomePalestrante = palestrante.nome;
-            localStorage.setItem("palestrante", nomePalestrante);
+            const nomePalestrante = 1;
+            localStorage.setItem("palestrante", 1);
         }
 
         salvandoNomeDoPalestrante();
-    }, [palestrante]);
+    }, [navigate]);
 
     useEffect(() => {
         const stored = JSON.parse(localStorage.getItem("completedQuizzes")) || [];
