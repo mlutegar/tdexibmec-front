@@ -12,8 +12,8 @@ const Top5 = ({top5}) => {
     const calcularPontuacaoMaxima = () => {
         let maiorPontuacao = 0;
         top5.forEach((item) => {
-            if (item.pontos > maiorPontuacao) {
-                maiorPontuacao = item.pontos;
+            if (item.score > maiorPontuacao) {
+                maiorPontuacao = item.score;
             }
         });
         setPontuacaoMaximaDoTop5(maiorPontuacao);
@@ -22,7 +22,7 @@ const Top5 = ({top5}) => {
     return (
         <Top5Style>
             {top5.map((item, index) => (
-                <Barra key={index} posicao={index+1} icone={item.avatar} nome={item.nome} pontuacao={item.pontos} pontuacaoMaxima={pontuacaoMaximaDoTop5}/>
+                <Barra key={index} posicao={index+1} icone={item.avatar} nome={item.espectador} pontuacao={item.score} pontuacaoMaxima={pontuacaoMaximaDoTop5}/>
             ))}
         </Top5Style>
     )

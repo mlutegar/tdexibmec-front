@@ -6,17 +6,17 @@ const Top3 = ({top3}) => {
         <Top3Style>
             <Coluna
                 posicaoNumero={2}
-                nomeCompetidor={top3[1].nome}
+                nomeCompetidor={top3[1].espectador}
                 iconeCompetidor={top3[1].avatar}
             />
             <Coluna
                 posicaoNumero={1}
-                nomeCompetidor={top3[0].nome}
+                nomeCompetidor={top3[0].espectador}
                 iconeCompetidor={top3[0].avatar}
             />
             <Coluna
                 posicaoNumero={3}
-                nomeCompetidor={top3[2].nome}
+                nomeCompetidor={top3[2].espectador}
                 iconeCompetidor={top3[2].avatar}
             />
         </Top3Style>

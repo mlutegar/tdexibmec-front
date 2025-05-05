@@ -1,8 +1,8 @@
 import {TelaPretaStyle} from "./Style";
 
-const TelaPreta = ({className, children}) => {
+const TelaPreta = ({className, children, onClick}) => {
     return (
-        <TelaPretaStyle className={className}>
+        <TelaPretaStyle className={className} onClick={onClick}>
             {children}
         </TelaPretaStyle>
     )

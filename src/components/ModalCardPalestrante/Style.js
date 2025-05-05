@@ -72,6 +72,16 @@ const ModalCardPalestranteStyle = styled.article`
         right: 1rem;
         top: 1.5rem;
         z-index: 999;
+        
+        cursor: pointer;
+        
+        &:hover{
+            transform: scale(1.1);
+        }
+        
+        &:active{
+            transform: scale(0.9);
+        }
     }
 `;
 

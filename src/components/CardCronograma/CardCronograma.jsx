@@ -74,8 +74,17 @@ const CardCronograma = ({
         setIsModalOpen(prev => !prev);
     }
 
+    const handleFecharModal = () => {
+        console.log('clicou');
+        setIsModalOpen(false);
+    }
+
     return (
-        <CardCronogramaStyle className={`${situacao} ${isModalOpen ? 'active' : 'hidden'}`} id={id} onClick={handleToggleModal}>
+        <CardCronogramaStyle className={`${situacao} ${isModalOpen ? 'active' : 'hidden'}`} id={id}
+                             onClick={() => {
+                                 if (!isModalOpen) handleToggleModal()
+                             }}
+        >
             <img
                 src={urlFotoConvidado}
                 alt="Foto do convidado"
@@ -134,10 +143,10 @@ const CardCronograma = ({
                 )}
             </div>
 
-            <TelaPreta className={isModalOpen ? 'active' : 'hidden'}>
+            <TelaPreta className={isModalOpen ? 'active' : 'hidden'} onClick={handleFecharModal}>
                 <ModalCardPalestrante
                     className={isModalOpen ? 'modal active' : 'modal'}
-                    onClick={handleToggleModal}
+                    onClick={handleFecharModal}
                     textoBotao={textoBotaoModal}
                     disabled={esperando}
                     nomeConvidado={nomeConvidado}
