@@ -18,7 +18,9 @@ const Cronograma = () => {
     const [completedQuizzes, setCompletedQuizzes] = useState([]);
 
     const handleClick = (palestrante) => {
-        if (completedQuizzes.includes(palestrante.nome)) {
+        localStorage.setItem("palestrante-id", palestrante.id);
+
+        if (completedQuizzes.includes(`${palestrante.id}`)) {
             navigate('/ranking', {
                 state: {
                     palestrante: palestrante
@@ -46,27 +48,32 @@ const Cronograma = () => {
         {
             nome: "Convidado 1",
             horario_inicio: "00:00",
-            horario_fim: "11:00",
+            horario_fim: "23:59",
+            id: 1
         },
         {
             nome: "Convidado 2",
-            horario_inicio: "11:00",
-            horario_fim: "15:00",
+            horario_inicio: "00:00",
+            horario_fim: "23:59",
+            id: 2
         },
         {
             nome: "Convidado 3",
-            horario_inicio: "16:00",
-            horario_fim: "17:00",
+            horario_inicio: "00:00",
+            horario_fim: "23:59",
+            id: 3
         },
         {
             nome: "Convidado 4",
-            horario_inicio: "17:00",
-            horario_fim: "18:00",
+            horario_inicio: "00:00",
+            horario_fim: "23:59",
+            id: 4
         },
         {
             nome: "Convidado 5",
-            horario_inicio: "18:00",
-            horario_fim: "19:00",
+            horario_inicio: "00:00",
+            horario_fim: "23:59",
+            id: 5
         }
     ];
 

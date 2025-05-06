@@ -11,20 +11,16 @@ import Cookies from "js-cookie";
 
 const Ranking = () => {
     const navigate = useNavigate();
-    const [nomePalestrante, setNomePalestrante] = useState(localStorage.getItem("palestrante") || "Palestrante");
-
+    const [nomePalestrante, setNomePalestrante] = useState(localStorage.getItem("palestrante-id") || "Palestrante");
     const [ranking, setRanking] = useState([]);
     const [botaoDesativado, setBotaoDesativado] = useState(true);
-
-    const [nomeJogadorAtual, setNomeJogadorAtual] = useState(localStorage.getItem("name"));
-    const [pontosJogadorAtual, setPontosJogadorAtual] = useState(localStorage.getItem("pontuacao"));
-
     const [top5, setTop5] = useState([]);
 
     const adicionarJogadorAtualAoRanking = () => {
         const rankingAtualizado = [...top5].sort((a, b) => b.score - a.score).slice(0, 5);
         setRanking(rankingAtualizado);
     }
+
     const desativarBotaoPor5Segundos = () => {
         setBotaoDesativado(true);
         const timer = setTimeout(() => {
@@ -32,9 +28,11 @@ const Ranking = () => {
         }, 5000);
         return () => clearTimeout(timer);
     }
+
     const fethTop5 = async () => {
         const csrftoken = Cookies.get('csrftoken');
-        const response = await fetch("http://127.0.0.1:8000/api/rankings/speaker/1/", {
+        const palestranteId = localStorage.getItem("palestrante-id");
+        const response = await fetch(`https://tdexibmec.fly.dev/api/rankings/speaker/${palestranteId}/`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -62,6 +60,7 @@ const Ranking = () => {
     }
 
     useEffect(() => {
+        console.log("ranking", ranking);
         if (top5.length === 0) {
             fethTop5();
         }
@@ -77,8 +76,6 @@ const Ranking = () => {
         navigate("/cronograma");
     }
 
-
-
     return (
         <BaseJogo>
             <TituloPagina
@@ -91,16 +88,19 @@ const Ranking = () => {
                     </>
                 }
             />
-            {ranking.length > 4 && (
-                <>
-                    <Top3
-                        top3={ranking.slice(0, 3)}
-                    />
-                    <Top5
-                        top5={ranking}
-                    />
-                </>
+
+            {ranking.length > 2 && (
+                <Top3
+                    top3={ranking.slice(0, 3)}
+                />
             )}
+
+            {ranking.length > 0 && (
+                <Top5
+                    top5={ranking}
+                />
+            )}
+
             <Footer>
                 <Logo/>
             </Footer>

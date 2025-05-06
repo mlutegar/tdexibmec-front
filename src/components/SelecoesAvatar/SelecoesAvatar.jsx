@@ -26,7 +26,6 @@ const SelecoesAvatar = () => {
                 centeredSlides={true}
                 loop={true}
                 onSlideChange={(swiper) => notificarAvatarEscolhido(swiper)}
-                onSwiper={(swiper) => console.log(swiper)}
             >
                 <SwiperSlide>
                     <BotaoAvatar id={"homem1"} ativado={ativo === "homem1"}>

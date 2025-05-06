@@ -21,34 +21,29 @@ const Palestrante = () => {
 
     const { pontuacao, adicionarPontos } = usePontuacao();
     const navigate = useNavigate();
-    const location = useLocation();
-    const {palestrante} = location.state;
 
     const handleSelecao = (id) => {
         setAlternativaSelecionada(id);
     };
 
     const enviarParaRanking = async () => {
-        const updatedQuizzes = [...completedQuizzes, 1];
+        const palestranteId = localStorage.getItem("palestrante-id");
+        const updatedQuizzes = [...completedQuizzes, palestranteId];
         setCompletedQuizzes(updatedQuizzes);
         localStorage.setItem("completedQuizzes", JSON.stringify(updatedQuizzes));
         const espectador = localStorage.getItem("id");
-        const palestrante = 1;
+        const palestrante =  localStorage.getItem("palestrante-id");
 
         const resposta = await adicionarPontosAoBackend(espectador, palestrante, pontuacao);
-        console.log(resposta);
 
         if (resposta) {
-            console.log("Pontos enviados com sucesso:", resposta);
             navigate('/ranking');
         }
     }
 
     const adicionarPontosAoBackend = async (espectador, palestrante, score) => {
-        console.log(espectador, palestrante, score);
-
         const csrftoken = Cookies.get('csrftoken');
-        const response = await fetch("http://127.0.0.1:8000/api/scores/", {
+        const response = await fetch("https://tdexibmec.fly.dev/api/scores/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -67,7 +62,6 @@ const Palestrante = () => {
         }
 
         const data = await response.json();
-        console.log("Pontos adicionados com sucesso:", data);
         return data;
     }
 

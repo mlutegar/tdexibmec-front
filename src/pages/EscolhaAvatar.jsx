@@ -26,7 +26,7 @@ const EscolhaAvatar = () => {
 
     const adicionarUsuarioAoBackend = async (avatarId) => {
         const csrftoken = Cookies.get('csrftoken');
-        const response = await fetch("http://127.0.0.1:8000/api/espectador/", {
+        const response = await fetch("https://tdexibmec.fly.dev/api/espectador/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -44,14 +44,12 @@ const EscolhaAvatar = () => {
         }
 
         const data = await response.json();
-        console.log("Usuário adicionado com sucesso:", data);
         return data.id;
     }
 
     useEffect(() => {
         const storedNome = localStorage.getItem("name");
         setNome(storedNome);
-        console.log(storedNome);
     }, [navigate]);
 
     return (
