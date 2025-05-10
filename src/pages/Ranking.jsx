@@ -11,7 +11,10 @@ import Cookies from "js-cookie";
 
 const Ranking = () => {
     const navigate = useNavigate();
+
     const [nomePalestrante, setNomePalestrante] = useState(localStorage.getItem("palestrante-id") || "Palestrante");
+    const [tituloPagina, setTituloPagina] = useState("Resultado da dinâmica do " + nomePalestrante);
+
     const [ranking, setRanking] = useState([]);
     const [botaoDesativado, setBotaoDesativado] = useState(true);
     const [top5, setTop5] = useState([]);
@@ -30,9 +33,17 @@ const Ranking = () => {
     }
 
     const fethTop5 = async () => {
-        const csrftoken = Cookies.get('csrftoken');
+        let url;
+
         const palestranteId = localStorage.getItem("palestrante-id");
-        const response = await fetch(`https://tdexibmec.fly.dev/api/rankings/speaker/${palestranteId}/`, {
+        if (palestranteId === "0"){
+            url = `https://tedxibmec.fly.dev/api/rankings/overall/`;
+        } else{
+            url = `https://tedxibmec.fly.dev/api/rankings/speaker/${palestranteId}/`;
+        }
+
+        const csrftoken = Cookies.get('csrftoken');
+        const response = await fetch(url, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -72,6 +83,12 @@ const Ranking = () => {
 
     }, []);
 
+    useEffect(() => {
+        if (nomePalestrante === "0") {
+            setTituloPagina("Ranking Geral");
+        }
+    }, [nomePalestrante]);
+
     const handleClick = () => {
         navigate("/cronograma");
     }
@@ -79,7 +96,7 @@ const Ranking = () => {
     return (
         <BaseJogo>
             <TituloPagina
-                titulo={"Resultado da dinâmica do " + nomePalestrante}
+                titulo={tituloPagina}
                 subtitulo={
                     <>
                         <Botao className={"mini"} onClick={handleClick}>
@@ -89,17 +106,13 @@ const Ranking = () => {
                 }
             />
 
-            {ranking.length > 2 && (
-                <Top3
-                    top3={ranking.slice(0, 3)}
-                />
-            )}
+            <Top3
+                top3={ranking.slice(0, 3)}
+            />
 
-            {ranking.length > 0 && (
-                <Top5
-                    top5={ranking}
-                />
-            )}
+            <Top5
+                top5={ranking}
+            />
 
             <Footer>
                 <Logo/>

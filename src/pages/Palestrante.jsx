@@ -15,26 +15,39 @@ const Palestrante = () => {
     const [alternativaSelecionada, setAlternativaSelecionada] = useState(null);
     const [alternativaIncorreta, setAlternativaIncorreta] = useState(null);
     const [mostrarRespostaCorreta, setMostrarRespostaCorreta] = useState(false);
-    const [perguntaAtual, setPerguntaAtual] = useState(0);
+
+    const storageKeyNumeroPergunta = `perguntaAtual-${localStorage.getItem("palestrante-id")}`;
+    const storageKeyScore = `score-${localStorage.getItem("palestrante-id")}`;
+
+    const [perguntaAtual, setPerguntaAtual] = useState(() => {
+        const saved = localStorage.getItem(storageKeyNumeroPergunta);
+        return parseInt(saved, 10) || 0;
+    });
+
+    const [scorePalestrante, setScorePalestrante] = useState(() => {
+        const saved = localStorage.getItem(storageKeyScore);
+        return parseInt(saved, 10) || 0;
+    });
+
     const [textoBotao, setTextoBotao] = useState("ENVIAR");
     const [completedQuizzes, setCompletedQuizzes] = useState([]);
 
-    const { pontuacao, adicionarPontos } = usePontuacao();
+    const { adicionarPontos } = usePontuacao();
     const navigate = useNavigate();
 
     const handleSelecao = (id) => {
         setAlternativaSelecionada(id);
     };
 
-    const enviarParaRanking = async () => {
+    const enviarParaRanking = async (pontuacaoProRanking) => {
         const palestranteId = localStorage.getItem("palestrante-id");
         const updatedQuizzes = [...completedQuizzes, palestranteId];
-        setCompletedQuizzes(updatedQuizzes);
-        localStorage.setItem("completedQuizzes", JSON.stringify(updatedQuizzes));
         const espectador = localStorage.getItem("id");
         const palestrante =  localStorage.getItem("palestrante-id");
+        setCompletedQuizzes(updatedQuizzes);
 
-        const resposta = await adicionarPontosAoBackend(espectador, palestrante, pontuacao);
+        localStorage.setItem("completedQuizzes", JSON.stringify(updatedQuizzes));
+        const resposta = await adicionarPontosAoBackend(espectador, palestrante, pontuacaoProRanking);
 
         if (resposta) {
             navigate('/ranking');
@@ -43,21 +56,19 @@ const Palestrante = () => {
 
     const adicionarPontosAoBackend = async (espectador, palestrante, score) => {
         const csrftoken = Cookies.get('csrftoken');
-        const response = await fetch("https://tdexibmec.fly.dev/api/scores/", {
+        const payload = { espectador, palestrante, score };
+
+        const response = await fetch("https://tedxibmec.fly.dev/api/scores/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 "X-CSRFToken": csrftoken,
             },
-            body: JSON.stringify({
-                espectador: espectador,
-                palestrante: palestrante,
-                score: score,
-            }),
+            body: JSON.stringify(payload),
         });
 
         if (!response.ok) {
-            console.error("Erro ao adicionar pontos ao backend");
+            const textoErro = await response.text();
             return null;
         }
 
@@ -70,10 +81,13 @@ const Palestrante = () => {
             setMostrarRespostaCorreta(true);
             setTextoBotao("ACERTOU!!");
             adicionarPontos();
+            localStorage.setItem(storageKeyScore, JSON.stringify(scorePalestrante + 20));
+            setScorePalestrante(scorePalestrante + 20);
 
             setTimeout(() => {
                 if (perguntaAtual === perguntas.length - 1) {
-                    enviarParaRanking().then(r => {
+                    localStorage.removeItem(storageKeyNumeroPergunta);
+                    enviarParaRanking(scorePalestrante + 20).then(r => {
                         console.log(r);
                     });
                 } else {
@@ -90,6 +104,7 @@ const Palestrante = () => {
 
             setTimeout(() => {
                 if (perguntaAtual === perguntas.length - 1) {
+                    localStorage.removeItem(storageKeyNumeroPergunta);
                     enviarParaRanking().then(r => {
                         console.log(r);
                     });
@@ -109,18 +124,13 @@ const Palestrante = () => {
     }
 
     useEffect(() => {
-        const salvandoNomeDoPalestrante = () => {
-            const nomePalestrante = 1;
-            localStorage.setItem("palestrante", 1);
-        }
-
-        salvandoNomeDoPalestrante();
-    }, [navigate]);
-
-    useEffect(() => {
         const stored = JSON.parse(localStorage.getItem("completedQuizzes")) || [];
         setCompletedQuizzes(stored);
     }, []);
+
+    useEffect(() => {
+        localStorage.setItem(storageKeyNumeroPergunta, JSON.stringify(perguntaAtual));
+    }, [perguntaAtual, storageKeyNumeroPergunta]);
 
     const perguntas = [
         {

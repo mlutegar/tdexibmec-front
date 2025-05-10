@@ -7,7 +7,6 @@ import {useEffect, useState} from "react";
 import ToolTip from "../components/ToolTip/ToolTip";
 import TelaPreta from "../components/TelaPreta/TelaPreta";
 import MensagemToolTip2 from "../components/MensagemToolTip2/MensagemToolTip2";
-import palestrante from "./Palestrante";
 
 const Cronograma = () => {
     const QUANTIDADE_MAXIMA_DE_TOOL_TIPS = 3;
@@ -37,6 +36,8 @@ const Cronograma = () => {
     }
 
     const handleClickFinalizado = (palestrante) => {
+        localStorage.setItem("palestrante-id", palestrante.id);
+
         navigate('/ranking', {
             state: {
                 palestrante: palestrante
@@ -48,31 +49,31 @@ const Cronograma = () => {
         {
             nome: "Convidado 1",
             horario_inicio: "00:00",
-            horario_fim: "23:59",
+            horario_fim: "24:00",
             id: 1
         },
         {
             nome: "Convidado 2",
-            horario_inicio: "00:00",
-            horario_fim: "23:59",
+            horario_inicio: "13:00",
+            horario_fim: "24:00",
             id: 2
         },
         {
             nome: "Convidado 3",
-            horario_inicio: "00:00",
-            horario_fim: "23:59",
+            horario_inicio: "14:01",
+            horario_fim: "24:00",
             id: 3
         },
         {
             nome: "Convidado 4",
-            horario_inicio: "00:00",
-            horario_fim: "23:59",
+            horario_inicio: "16:00",
+            horario_fim: "24:00",
             id: 4
         },
         {
             nome: "Convidado 5",
-            horario_inicio: "00:00",
-            horario_fim: "23:59",
+            horario_inicio: "18:00",
+            horario_fim: "24:00",
             id: 5
         }
     ];

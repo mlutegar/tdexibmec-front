@@ -3,6 +3,7 @@ import SubitituloHome from "../components/SubitituloHome/SubitituloHome";
 import BaseHome from "./BaseHome";
 import SelecoesAvatar from "../components/SelecoesAvatar/SelecoesAvatar";
 import Botao from "../components/Botao/Botao";
+import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
 import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import Cookies from "js-cookie";
@@ -11,22 +12,43 @@ const EscolhaAvatar = () => {
     const navigate = useNavigate();
     const [nome, setNome] = useState(localStorage.getItem("name"));
     const [id, setId] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const handleAvatarSelection = async () => {
         const selectedAvatar = document.querySelector('.swiper-slide-active [id]');
         const avatarId = selectedAvatar?.id;
+
+        if (!avatarId) {
+            // Adicionar um feedback ao usuário se nenhum avatar estiver selecionado
+            alert("Por favor, selecione um avatar");
+            return;
+        }
+
+        // Mostrar o loading spinner
+        setLoading(true);
+
         localStorage.setItem("avatar", avatarId);
 
-        const idAluno = await adicionarUsuarioAoBackend(avatarId);
-        if (idAluno) {
-            localStorage.setItem("id", idAluno);
-            navigate('/cronograma');
+        try {
+            const idAluno = await adicionarUsuarioAoBackend(avatarId);
+            if (idAluno) {
+                localStorage.setItem("id", idAluno);
+                navigate('/cronograma');
+            } else {
+                // Se houve erro, esconder o loading
+                setLoading(false);
+            }
+        } catch (error) {
+            console.error("Erro ao processar seleção de avatar:", error);
+            setLoading(false);
+            // Opcional: adicionar um feedback ao usuário sobre o erro
+            alert("Ocorreu um erro ao selecionar o avatar. Tente novamente.");
         }
     }
 
     const adicionarUsuarioAoBackend = async (avatarId) => {
         const csrftoken = Cookies.get('csrftoken');
-        const response = await fetch("https://tdexibmec.fly.dev/api/espectador/", {
+        const response = await fetch("https://tedxibmec.fly.dev/api/espectador/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -64,6 +86,8 @@ const EscolhaAvatar = () => {
             >
                 SELECIONAR
             </Botao>
+
+            {loading && <LoadingSpinner message="Processando sua seleção..." />}
         </BaseHome>
     )
 }

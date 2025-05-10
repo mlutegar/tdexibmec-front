@@ -7,7 +7,7 @@ const Top5 = ({top5}) => {
 
     useEffect(() => {
         calcularPontuacaoMaxima();
-    }, []);
+    }, [top5]);
 
     const calcularPontuacaoMaxima = () => {
         let maiorPontuacao = 0;
