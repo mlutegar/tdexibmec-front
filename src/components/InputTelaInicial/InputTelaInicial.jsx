@@ -33,7 +33,7 @@ const InputTelaInicial = ({className}) => {
                 onChange={handleChange}
                 placeholder="digite seu nome"
             />
-            <Botao type="submit" disabled={!name.trim()}>
+            <Botao type="submit" disabled={name.trim().length <= 3}>
                 ENTRE
             </Botao>
         </InputTelaInicialStyle>

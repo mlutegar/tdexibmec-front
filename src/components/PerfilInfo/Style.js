@@ -3,7 +3,7 @@ import styled from "styled-components";
 const PerfilInfoStyle = styled.article`
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     justify-content: flex-start;
     width: 100%;
     gap: 2rem;

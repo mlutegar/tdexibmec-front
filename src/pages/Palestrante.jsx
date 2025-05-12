@@ -10,6 +10,7 @@ import {useEffect, useState} from "react";
 import TituloPergunta from "../components/TituloPergunta/TituloPergunta";
 import {usePontuacao} from "../context/PontuacaoProvider";
 import Cookies from "js-cookie";
+import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
 
 const Palestrante = () => {
     const [alternativaSelecionada, setAlternativaSelecionada] = useState(null);
@@ -18,6 +19,8 @@ const Palestrante = () => {
 
     const storageKeyNumeroPergunta = `perguntaAtual-${localStorage.getItem("palestrante-id")}`;
     const storageKeyScore = `score-${localStorage.getItem("palestrante-id")}`;
+
+    const [loading, setLoading] = useState(false);
 
     const [perguntaAtual, setPerguntaAtual] = useState(() => {
         const saved = localStorage.getItem(storageKeyNumeroPergunta);
@@ -40,6 +43,7 @@ const Palestrante = () => {
     };
 
     const enviarParaRanking = async (pontuacaoProRanking) => {
+        setLoading(true);
         const palestranteId = localStorage.getItem("palestrante-id");
         const updatedQuizzes = [...completedQuizzes, palestranteId];
         const espectador = localStorage.getItem("id");
@@ -51,6 +55,8 @@ const Palestrante = () => {
 
         if (resposta) {
             navigate('/ranking');
+        } else {
+            setLoading(false);
         }
     }
 
@@ -187,7 +193,7 @@ const Palestrante = () => {
                 handleSelecao={handleSelecao}
             />
 
-            <Botao disabled={!alternativaSelecionada} type={"button"} onClick={handleEnviar}>
+            <Botao disabled={!alternativaSelecionada || loading} type={"button"} onClick={handleEnviar}>
                 {textoBotao}
             </Botao>
 
@@ -198,6 +204,8 @@ const Palestrante = () => {
             <Footer>
                 <Logo/>
             </Footer>
+
+            {loading && <LoadingSpinner message="Enviando pontuação..." />}
         </BaseJogo>
     )
 }

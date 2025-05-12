@@ -7,12 +7,15 @@ import {useState} from "react";
 
 
 
-const Header = () => {
+const Header = ({ onPerfilClick }) => {
     const navigate = useNavigate();
     const [avatarId, setAvatarId] = useState(localStorage.getItem("avatar") || "homem3");
 
     const handlePerfil = () => {
-        navigate("/perfil");
+        // Em vez de navegar, agora chamamos a função para abrir o modal
+        if (onPerfilClick) {
+            onPerfilClick();
+        }
     }
 
     const handleLogoClick = () => {
