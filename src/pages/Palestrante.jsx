@@ -61,25 +61,60 @@ const Palestrante = () => {
     }
 
     const adicionarPontosAoBackend = async (espectador, palestrante, score) => {
-        const csrftoken = Cookies.get('csrftoken');
-        const payload = { espectador, palestrante, score };
+        console.log("Iniciando função com parâmetros:", { espectador, palestrante, score });
 
-        const response = await fetch("https://tedxibmec.fly.dev/api/scores/", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRFToken": csrftoken,
-            },
-            body: JSON.stringify(payload),
-        });
-
-        if (!response.ok) {
-            const textoErro = await response.text();
+        // Debug para verificar se os parâmetros estão corretos
+        if (!espectador || !palestrante || score === undefined) {
+            console.error("Parâmetros inválidos:", { espectador, palestrante, score });
             return null;
         }
 
-        const data = await response.json();
-        return data;
+        // Debug para verificar o CSRF token
+        const csrftoken = Cookies.get('csrftoken');
+        console.log("CSRF Token obtido:", csrftoken);
+
+        if (!csrftoken) {
+            console.error("CSRF Token não encontrado!");
+        }
+
+        const payload = { espectador, palestrante, score };
+        console.log("Payload montado:", payload);
+
+        try {
+            console.log("Iniciando requisição para:", "https://tedxibmec.fly.dev/api/scores/");
+
+            const response = await fetch("https://tedxibmec.fly.dev/api/scores/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": csrftoken,
+                },
+                body: JSON.stringify(payload),
+            });
+
+            console.log("Status da resposta:", response.status);
+            console.log("Headers da resposta:", Object.fromEntries(response.headers.entries()));
+
+            if (!response.ok) {
+                const textoErro = await response.text();
+                console.error("Erro na requisição:", {
+                    status: response.status,
+                    statusText: response.statusText,
+                    textoErro
+                });
+                return null;
+            }
+
+            console.log("Resposta bem-sucedida, processando dados...");
+            const data = await response.json();
+            console.log("Dados recebidos:", data);
+
+            return data;
+        } catch (error) {
+            console.error("Exceção capturada na requisição:", error.message);
+            console.error("Stack trace:", error.stack);
+            return null;
+        }
     }
 
     const handleEnviar = () => {
@@ -111,7 +146,7 @@ const Palestrante = () => {
             setTimeout(() => {
                 if (perguntaAtual === perguntas.length - 1) {
                     localStorage.removeItem(storageKeyNumeroPergunta);
-                    enviarParaRanking().then(r => {
+                    enviarParaRanking(scorePalestrante).then(r => {
                         console.log(r);
                     });
                 } else {

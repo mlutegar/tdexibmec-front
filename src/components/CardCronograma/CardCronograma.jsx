@@ -11,7 +11,8 @@ const CardCronograma = ({
                             horarioFim,
                             onClick,
                             onClickFinalizado,
-                            id
+                            id,
+                            descricao
                         }) => {
     const [currentTime, setCurrentTime] = useState(new Date());
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -152,6 +153,8 @@ const CardCronograma = ({
                     horaInicio={horarioInicio}
                     horaFim={horarioFim}
                     onClickBotao={onClickSituacao}
+                    descricao={descricao}
+                    imagemConvidado={urlFotoConvidado}
                 />
             </TelaPreta>
 

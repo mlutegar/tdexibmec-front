@@ -8,6 +8,7 @@ import {usePontuacao} from "../../context/PontuacaoProvider";
 
 const PerfilInfo = () => {
     const [avatarId, setAvatarId] = useState(localStorage.getItem("avatar") || "homem3");
+    const name = localStorage.getItem("name");
     const [pontuacao, setPontuacao] = useState(0);
     const navigate = useNavigate();
     const { resetarPontuacao } = usePontuacao();
@@ -77,7 +78,7 @@ const PerfilInfo = () => {
             </div>
 
             <div>
-                Michel Lutegar
+                {name}
             </div>
 
             <Botao onClick={handleRanking}>

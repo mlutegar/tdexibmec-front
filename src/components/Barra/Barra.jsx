@@ -34,7 +34,9 @@ const Barra = ({
                 >
                     { getAvatar(icone) }
                 </BotaoAvatar>
-                {nome}
+                <div className={'competidor'}>
+                    {nome}
+                </div>
             </div>
             <div className={"container-pontuacao"}>
                 {pontuacao}

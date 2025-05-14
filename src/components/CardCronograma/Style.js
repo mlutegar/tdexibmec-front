@@ -13,6 +13,7 @@ const CardCronogramaStyle = styled.article`
 
         border-radius: 3.125rem;
         border: 2px solid #FFF;
+        object-fit: scale-down;
     }
     
     &.active{
@@ -56,6 +57,7 @@ const CardCronogramaStyle = styled.article`
             line-height: normal;
 
             text-transform: uppercase;
+            width: 8rem;
         }
     }
     

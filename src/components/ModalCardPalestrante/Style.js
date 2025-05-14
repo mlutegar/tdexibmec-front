@@ -11,6 +11,17 @@ const ModalCardPalestranteStyle = styled.article`
     color: black;
     padding: 1rem 0;
     box-sizing: content-box;
+    overflow-y: auto;
+    max-height: 80vh;
+
+    &::-webkit-scrollbar {
+        width: 0px; /* Oculta a barra de rolagem horizontal */
+        background: transparent; /* Oculta o fundo da barra de rolagem */
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: transparent; /* Oculta o "polegar" da barra de rolagem */
+    }
     
     &.active{
         display: flex;
@@ -28,6 +39,7 @@ const ModalCardPalestranteStyle = styled.article`
         border-radius: 0.625rem !important;
         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
         border: none;
+        object-fit: cover;
     }
     
     .informacoes-convidado{

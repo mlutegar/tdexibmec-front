@@ -3,6 +3,7 @@ import styled from "styled-components";
 const ToolTipStyle = styled.article`
     padding: 1.25rem 1.5rem;
     flex-shrink: 0;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
     
     display: flex;
     flex-direction: column;

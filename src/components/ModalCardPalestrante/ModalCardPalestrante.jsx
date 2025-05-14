@@ -9,7 +9,9 @@ const ModalCardPalestrante = ({
                                   nomeConvidado,
                                     horaInicio,
                                     horaFim,
-                                  onClickBotao
+                                  onClickBotao,
+                                  descricao,
+    imagemConvidado
                               }) => {
     return (
         <ModalCardPalestranteStyle className={className}>
@@ -19,7 +21,7 @@ const ModalCardPalestrante = ({
                 </svg>
             </div>
             <img
-                src="imagens/fotoDefaultCronogramaPalestrante.png"
+                src={imagemConvidado}
                 alt="Foto do convidado"
                 className="imagem-convidado"
             />
@@ -28,9 +30,7 @@ const ModalCardPalestrante = ({
                 <div className="horario">{horaInicio} - {horaFim}</div>
             </div>
             <div className={"descricao-convidado"}>
-                Professor e Coordenador dos cursos de Publicidade e Propaganda no IBMEC, com mais de 10 anos de
-                experiência no ensino superior e na indústria da comunicação, o Prof. Victor une sólida formação
-                acadêmica a uma atuação prática e estratégica em marketing e branding.
+                {descricao}
             </div>
             <Botao onClick={onClickBotao} disabled={disabled}>{textoBotao}</Botao>
         </ModalCardPalestranteStyle>

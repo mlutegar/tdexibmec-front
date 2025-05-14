@@ -27,6 +27,10 @@ const BarraStyle = styled.article`
     font-style: normal;
     font-weight: 900;
     line-height: normal;
+    
+    .competidor{
+        width: 2rem;
+    }
 
     .avatar{
         width: 3rem;

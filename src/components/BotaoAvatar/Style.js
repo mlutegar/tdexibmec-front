@@ -9,13 +9,26 @@ const BotaoAvatarStyle = styled.article`
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 1s ease;
+    overflow: hidden;
     
-    &.desativado {
-        background-color: #D9D9D9;
+    svg{
+        border-radius: 50%;
+        width: 100%;
+        height: 80%;
     }
     
+
+    &.desativado {
+        background-color: #4d4d4d;
+        
+        svg{
+            filter: brightness(0.5);
+        }
+    }
+
     &.ativado {
-        background-color: #cd0909;
+        background-color: #d9d9d9;
     }
 `;
 
